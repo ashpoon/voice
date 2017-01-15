@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Voice talent search</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
+	<style>
+		.container {
+			width: 800px;
+		}
+		.voice-search-input {
+			margin-bottom: 1rem;
+		}
+		.voice-search-summary {
+			font-style: italic;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container">
+  
+	<h1 class="display-1">Voice talent search</h1>
+	<input type="text" class="voice-search-input form-control" placeholder="Search..." autocomplete="off">
+	<p class="voice-search-summary"></p>
+
+	<table class="table voice-search-results">
+	<tbody>
+	</tbody>
+	</table>
+</div>
+
+	<script>
+		let data;
+		const searchResultsDom = document.querySelector(".voice-search-results tbody");
+		const summaryDom = document.querySelector(".voice-search-summary");
+
+		function loadData(url) {
+			Papa.parse(url, {
+				download: true,
+				header: true,
+				dynamicTyping: true,
+				complete: function (results) {
+					console.log("loaded", results.data);
+					data = results.data;
+
+					summaryDom.innerText = `loaded ${data.length} actors`;
+				}
+			});
+		}
+
+		loadData("data/voice-actors.csv");
+	</script>
+</body>
+</html>
