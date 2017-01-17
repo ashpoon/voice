@@ -23,6 +23,16 @@
 			cursor: pointer;
 			user-select: none; /* prevent double click highlight */
 		}
+		.voice-search-results td {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		audio {
+			display: block;
+			width: 4rem;
+			margin-left: 0.3rem;
+		}
 	</style>
 </head>
 <body>
@@ -50,6 +60,19 @@
 	</label>
 </script>
 
+<script id="search-result-template" type="text/x-handlebars-template">
+	<tr>
+		<td>
+			<span class="search-result-body"><strong>{{name}}</strong> {{headers}}</span>
+			<span class="search-result-audio">
+				{{#if sample}}
+				<audio src="samples/{{sample}}" controls="controls">Your browser does not support audio tags</audio>
+				{{/if}}
+			</span>
+		</td>
+	</tr>
+</script>
+
 <script>
 	let data;
 	let headers = [];
@@ -58,6 +81,9 @@
 	const searchOptionsDom = document.querySelector(".voice-search-options");
 	const searchResultsDom = document.querySelector(".voice-search-results tbody");
 	const summaryDom = document.querySelector(".voice-search-summary");
+
+	const searchOptionTemplate = Handlebars.compile(document.getElementById("search-option-template").innerHTML);
+	const searchResultTemplate = Handlebars.compile(document.getElementById("search-result-template").innerHTML);
 
 	loadData("data/voice-actors.csv");
 
@@ -117,11 +143,9 @@
 
 	function displaySearchOptions(keys) {
 		const form = document.querySelector(".voice-search-options");
-		const template = Handlebars.compile(document.getElementById("search-option-template").innerHTML);
-
 		form.innerHTML = keys.map(function (key) {
-			return template({ key: key, label: prettifyOptionKey(key) });
-		}).join('\n');
+			return searchOptionTemplate({ key: key, label: prettifyOptionKey(key) });
+		}).join("\n");
 	}
 
 	function displaySummary(text) {
@@ -129,20 +153,20 @@
 	}
 
 	function displaySearchResults(rows) {
-		const nameAndQualities = rows.map(function (row) {
+		const templateModel = rows.map(function (row) {
 			return {
 				name: row.Name,
+				sample: row.Sample,
 				headers: headers.filter(function (header) {
 					return row[header];
-				}).sort().map(prettifyOptionKey)
+				}).sort().map(prettifyOptionKey).join(", ")
 			};
 			
 		});
-		const results = nameAndQualities.map(function (object) {
-			return "<tr><td><strong>" + object.name + "</strong> " + object.headers.join(', ') + "</td></tr>";
-		});
-
-		searchResultsDom.innerHTML = results.join('\n');
+		
+		searchResultsDom.innerHTML = templateModel.map(function (object) {
+			return searchResultTemplate(object);
+		}).join("\n");
 	}
 
 	function prettifyOptionKey(key) {
