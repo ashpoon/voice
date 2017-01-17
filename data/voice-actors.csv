@@ -12,7 +12,7 @@ Amy B.,,TRUE,,TRUE,TRUE,,TRUE,TRUE,,TRUE,,TRUE
 Jonny S.,,,TRUE,TRUE,,,,TRUE,,TRUE,,TRUE
 Holly C.,,TRUE,,TRUE,,,,,,TRUE,,TRUE
 Remo,,,TRUE,TRUE,TRUE,,,,,TRUE,,TRUE
-Flipout,,,TRUE,,TRUE,,,TRUE,,TRUE,,
+Flip,,,TRUE,,TRUE,,,TRUE,,TRUE,,
 Chris P.,,,TRUE,TRUE,TRUE,,TRUE,TRUE,,TRUE,TRUE,TRUE
 Denai J.,,TRUE,,TRUE,,TRUE,,TRUE,,TRUE,,
 Joelle S.,,TRUE,,TRUE,,,TRUE,TRUE,,TRUE,,
@@ -27,7 +27,7 @@ Matt S.,,,TRUE,,TRUE,TRUE,,,,,,
 Blake P.,,,TRUE,,TRUE,TRUE,,,,,,
 Don T.,,,TRUE,,TRUE,TRUE,,,,,,
 Barry M.,,,TRUE,,TRUE,TRUE,,,,,,
-"Bob ""Moj""",,,TRUE,,TRUE,TRUE,,,,,,
+Bob M.,,,TRUE,,TRUE,TRUE,,,,,,
 Iain M.,,,TRUE,,TRUE,TRUE,,,,,,
 Brook W.,,,TRUE,,TRUE,TRUE,,,,,,
 Jeff P.,,,TRUE,,TRUE,TRUE,,,,,,
@@ -63,9 +63,4 @@ Erica T.,,TRUE,,TRUE,,,,TRUE,,TRUE,,TRUE
 David S.,,,TRUE,,TRUE,,,TRUE,,TRUE,,TRUE
 Corina B.,,TRUE,,TRUE,,,,TRUE,,TRUE,TRUE,TRUE
 Peter F.,,,TRUE,,TRUE,,TRUE,TRUE,,,TRUE,TRUE
-Jim M.,,,TRUE,,TRUE,TRUE,,,TRUE,,,
-Ann D.,,TRUE,,TRUE,TRUE,,,,,,,
-Dan T.,,,TRUE,TRUE,TRUE,TRUE,,,TRUE,,,
-Kelly K. K.,,TRUE,,TRUE,,,,,,,,
-John P.,,,TRUE,,TRUE,TRUE,,,TRUE,,,
-Jim C.,,,TRUE,,TRUE,TRUE,,,TRUE,,,
+
