@@ -1,0 +1,25 @@
+.container {
+	width: 800px;
+}
+.voice-search-input {
+	margin-bottom: 1rem;
+}
+.voice-search-options {
+	display: flex;
+	flex-wrap: wrap;
+}
+.voice-search-options label {
+	min-width: 10rem;
+	cursor: pointer;
+	user-select: none; /* prevent double click highlight */
+}
+.voice-search-results td {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+audio {
+	display: block;
+	width: 4rem;
+	margin-left: 0.3rem;
+}
