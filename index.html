@@ -66,10 +66,11 @@
 			download: true,
 			header: true,
 			dynamicTyping: true,
+			skipEmptyLines: true,
 			complete: function (results) {
 				data = results.data;
 				headers = results.meta.fields.filter(function (field) {
-					return field && field !== "Name";
+					return field && field !== "Name" && field !== "Sample";
 				});
 
 				displaySearchOptions(headers);
@@ -87,7 +88,7 @@
 	function getCheckedOptions() {
 		const checked = document.querySelectorAll('input[type="checkbox"]:checked');
 		return Array.prototype.map.call(checked, function (e) { 
-			return e.value; 
+			return e.value;
 		});
 	}
 
@@ -148,7 +149,6 @@
 		return key.replace("_", " ");
 	}
 </script>
-
 
 </body>
 </html>
