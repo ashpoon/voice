@@ -14,6 +14,15 @@
 		.voice-search-input {
 			margin-bottom: 1rem;
 		}
+		.voice-search-options {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.voice-search-options label {
+			min-width: 10rem;
+			cursor: pointer;
+			user-select: none; /* prevent double click highlight */
+		}
 	</style>
 </head>
 <body>
@@ -36,11 +45,9 @@
 </div>
 
 <script id="search-option-template" type="text/x-handlebars-template">
-	<div class="form-check form-check-inline">
-		<label class="form-check-label">
-			<input type="checkbox" class="form-check-input voice-search-option" value="{{key}}"> {{label}}
-		</label>
-	</div>
+	<label>
+		<input type="checkbox" class="voice-search-option" value="{{key}}"> {{label}}
+	</label>
 </script>
 
 <script>
