@@ -20,7 +20,9 @@ function loadData(url) {
 		dynamicTyping: true,
 		skipEmptyLines: true,
 		complete: function (results) {
-			data = results.data;
+			data = results.data.sort(function (a, b) {
+				return a.Name.localeCompare(b.Name);
+			});
 			headers = results.meta.fields.filter(function identifySearchOption(field) {
 				return field[0] === searchOptionPrefix;
 			}).map(function stripSearchOptionPrefix(field) {
