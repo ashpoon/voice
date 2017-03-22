@@ -9,6 +9,8 @@ const summaryDom = document.querySelector(".voice-search-summary");
 const searchOptionTemplate = Handlebars.compile(document.getElementById("search-option-template").innerHTML);
 const searchResultTemplate = Handlebars.compile(document.getElementById("search-result-template").innerHTML);
 
+const searchOptionPrefix = "$"
+
 loadData("data/voice-actors.csv");
 
 function loadData(url) {
@@ -19,8 +21,10 @@ function loadData(url) {
 		skipEmptyLines: true,
 		complete: function (results) {
 			data = results.data;
-			headers = results.meta.fields.filter(function (field) {
-				return field && field !== "Name" && field !== "Sample";
+			headers = results.meta.fields.filter(function identifySearchOption(field) {
+				return field[0] === searchOptionPrefix;
+			}).map(function stripSearchOptionPrefix(field) {
+				return field.substr(1)
 			});
 
 			displaySearchOptions(headers);
@@ -37,7 +41,7 @@ function initInputs() {
 
 function getCheckedOptions() {
 	const checked = document.querySelectorAll('input[type="checkbox"]:checked');
-	return Array.prototype.map.call(checked, function (e) { 
+	return Array.prototype.map.call(checked, function (e) {
 		return e.value;
 	});
 }
@@ -47,14 +51,14 @@ function search(input) {
 	let matched = data.filter(function (row) {
 		return row.Name.toLowerCase().includes(searchInput.toLowerCase());
 	});
-	
+
 	const checkedOptions = getCheckedOptions();
 	if (checkedOptions.length) {
 		matched = matched.filter(function (row) {
 			return checkedOptions.every(function (checkedOption) {
-				return row[checkedOption] === true;
+				return row[searchOptionPrefix + checkedOption] === true;
 			});
-		});			
+		});
 	}
 
 	displaySummary("Matched " + matched.length + " " + maybePlural("actor", matched.length) + ":");
@@ -82,15 +86,12 @@ function displaySearchResults(rows) {
 			name: row.Name,
 			sample: row.Sample,
 			headers: headers.filter(function (header) {
-				return row[header];
+				return row[searchOptionPrefix + header];
 			}).sort().map(prettifyOptionKey).join(", ")
 		};
-		
 	});
-	
-	searchResultsDom.innerHTML = templateModel.map(function (object) {
-		return searchResultTemplate(object);
-	}).join("\n");
+
+	searchResultsDom.innerHTML = templateModel.map(searchResultTemplate).join("\n");
 }
 
 function prettifyOptionKey(key) {
