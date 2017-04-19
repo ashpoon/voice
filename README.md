@@ -2,7 +2,7 @@ Try it out: https://ashpoon.github.io/voice/
 
 # Voice talent
 
-Search for just the right voice talent for fun and profit.
+Search for just the right voice talent for your project.
 
 ## How do you add more actors?
 
