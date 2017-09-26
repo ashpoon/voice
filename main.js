@@ -11,7 +11,7 @@ const searchResultTemplate = Handlebars.compile(document.getElementById("search-
 
 const searchOptionPrefix = "$"
 
-loadData("data/voice-actors.csv");
+// loadData("data/voice-actors.csv");
 
 function loadData(url) {
 	Papa.parse(url, {
@@ -37,7 +37,7 @@ function loadData(url) {
 }
 
 function initInputs() {
-	searchButtonDom.addEventListener("input", search);
+	// searchButtonDom.addEventListener("input", search);
 	searchOptionsDom.addEventListener("change", search);
 }
 

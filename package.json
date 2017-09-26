@@ -1,0 +1,23 @@
+{
+  "name": "voice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ashpoon/voice.git",
+  "author": "David Hirtle <wachunga@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack -p",
+    "start": "python -m SimpleHTTPServer 3000"
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^3.5.6"
+  }
+}
