@@ -1,14 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class SearchSummary extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return <p class="voice-search-summary">Matched {this.props.count} {maybePlural('actor', this.props.count)}:</p>
-  }
+function SearchSummary(props) {
+  return <p class="voice-search-summary">Matched {props.count} {maybePlural('actor', props.count)}:</p>
 }
 
 function maybePlural(singular, count) {
