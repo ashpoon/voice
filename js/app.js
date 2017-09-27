@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SearchResult from './searchResult';
+import SearchSummary from './searchSummary';
 
 const searchOptionPrefix = "$";
 
@@ -54,6 +55,7 @@ class VoiceApp extends React.Component {
   render() {
     return (
       <div className="voice-app">
+      	<SearchSummary count={this.state.results.length} />
         <table className="table voice-search-results">
           <tbody>
             {this.state.results.map(result => {
