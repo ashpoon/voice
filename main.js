@@ -13,28 +13,28 @@ const searchOptionPrefix = "$"
 
 // loadData("data/voice-actors.csv");
 
-function loadData(url) {
-	Papa.parse(url, {
-		download: true,
-		header: true,
-		dynamicTyping: true,
-		skipEmptyLines: true,
-		complete: function (results) {
-			data = results.data.sort(function (a, b) {
-				return a.Name.localeCompare(b.Name);
-			});
-			headers = results.meta.fields.filter(function identifySearchOption(field) {
-				return field[0] === searchOptionPrefix;
-			}).map(function stripSearchOptionPrefix(field) {
-				return field.substr(1)
-			});
-
-			displaySearchOptions(headers);
-			initInputs();
-			search();
-		}
-	});
-}
+// function loadData(url) {
+// 	Papa.parse(url, {
+// 		download: true,
+// 		header: true,
+// 		dynamicTyping: true,
+// 		skipEmptyLines: true,
+// 		complete: function (results) {
+// 			data = results.data.sort(function (a, b) {
+// 				return a.Name.localeCompare(b.Name);
+// 			});
+// 			headers = results.meta.fields.filter(function identifySearchOption(field) {
+// 				return field[0] === searchOptionPrefix;
+// 			}).map(function stripSearchOptionPrefix(field) {
+// 				return field.substr(1)
+// 			});
+//
+// 			displaySearchOptions(headers);
+// 			initInputs();
+// 			search();
+// 		}
+// 	});
+// }
 
 function initInputs() {
 	// searchButtonDom.addEventListener("input", search);
@@ -50,9 +50,9 @@ function getCheckedOptions() {
 
 function search(input) {
 	const searchInput = searchButtonDom.value;
-	let matched = data.filter(function (row) {
-		return row.Name.toLowerCase().includes(searchInput.toLowerCase());
-	});
+	// let matched = data.filter(function (row) {
+	// 	return row.Name.toLowerCase().includes(searchInput.toLowerCase());
+	// });
 
 	const checkedOptions = getCheckedOptions();
 	if (checkedOptions.length) {
@@ -63,12 +63,8 @@ function search(input) {
 		});
 	}
 
-	displaySummary("Matched " + matched.length + " " + maybePlural("actor", matched.length) + ":");
-	displaySearchResults(matched);
-}
-
-function maybePlural(singular, count) {
-	return count === 1 ? singular : singular + "s";
+	// displaySummary("Matched " + matched.length + " " + maybePlural("actor", matched.length) + ":");
+	// displaySearchResults(matched);
 }
 
 function displaySearchOptions(keys) {
@@ -76,26 +72,4 @@ function displaySearchOptions(keys) {
 	form.innerHTML = keys.map(function (key) {
 		return searchOptionTemplate({ key: key, label: prettifyOptionKey(key) });
 	}).join("\n");
-}
-
-function displaySummary(text) {
-	summaryDom.innerText = text;
-}
-
-function displaySearchResults(rows) {
-	const templateModel = rows.map(function (row) {
-		return {
-			name: row.Name,
-			sample: row.Sample,
-			headers: headers.filter(function (header) {
-				return row[searchOptionPrefix + header];
-			}).sort().map(prettifyOptionKey).join(", ")
-		};
-	});
-
-	searchResultsDom.innerHTML = templateModel.map(searchResultTemplate).join("\n");
-}
-
-function prettifyOptionKey(key) {
-	return key.replace("_", " ");
 }

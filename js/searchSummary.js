@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 function SearchSummary(props) {
   return <p class="voice-search-summary">Matched {props.count} {maybePlural('actor', props.count)}:</p>

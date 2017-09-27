@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import SearchResult from './searchResult';
-import SearchSummary from './searchSummary';
+import SearchBox from './searchBox';
+import SearchResults from './searchResults';
 
 const searchOptionPrefix = "$";
 
 class VoiceApp extends React.Component {
   constructor(props) {
     super(props);
-    // this.handleChange = this.handleChange.bind(this);
-    this.state = { results: [], searched: ''};
+    this.state = { data: [], searched: ''};
     this.loadData('data/voice-actors.csv');
+
+    this.onSearchInput = this.onSearchInput.bind(this);
   }
 
   loadData(url) {
@@ -26,7 +27,7 @@ class VoiceApp extends React.Component {
         });
         console.log('done loading')
         console.log(results)
-        this.setState({ results: sorted })
+        this.setState({ data: sorted })
         // headers = results.meta.fields.filter(function identifySearchOption(field) {
         //   return field[0] === searchOptionPrefix;
         // }).map(function stripSearchOptionPrefix(field) {
@@ -40,41 +41,23 @@ class VoiceApp extends React.Component {
     });
   }
 
-  handleChange(e) {
-    this.setState({ text: e.target.value });
+  onSearchInput(searched) {
+    this.setState({ searched });
+    // FIXME: introduce SearchResults and use this.state.searched to influence them
   }
 
-  // <Search />
-    // <form class="voice-search-options">
-    //   {this.props.items.map(item => (
-    //     <li key={item.id}>{item.text}</li>
-    //   ))}
-    //   <SearchFilter />
-    // </form>
+  // <form class="voice-search-options">
+  //   {this.props.items.map(item => (
+  //     <li key={item.id}>{item.text}</li>
+  //   ))}
+  //   <SearchFilter />
+  // </form>
 
   render() {
     return (
       <div className="voice-app">
-      	<SearchSummary count={this.state.results.length} />
-        <table className="table voice-search-results">
-          <tbody>
-            {this.state.results.map(result => {
-              const resultHeaders = Object.keys(result)
-                .map(key => {
-                  if (key[0] === searchOptionPrefix && result[key] === true) {
-                    return key.substr(1)
-                  }
-                }).filter(Boolean);
-              return (
-                <tr>
-                  <td>
-                    <SearchResult name={result.Name} headers={resultHeaders} sample={result.Sample} />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <SearchBox value={this.state.searched} onChange={this.onSearchInput} />
+        <SearchResults term={this.state.searched} data={this.state.data} />
       </div>
     );
   }

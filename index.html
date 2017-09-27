@@ -15,7 +15,6 @@
 
 
 	<h1 class="display-1">Voice Talent</h1>
-
 	<div id="root"></div>
 	<form class="voice-search-options"></form>
 
@@ -26,19 +25,6 @@
 	<label>
 		<input type="checkbox" class="voice-search-option" value="{{key}}"> {{label}}
 	</label>
-</script>
-
-<script id="search-result-template" type="text/x-handlebars-template">
-	<tr>
-		<td>
-			<span class="search-result-body"><strong>{{name}}</strong> {{headers}}</span>
-			<span class="search-result-audio">
-				{{#if sample}}
-				<audio src="samples/{{sample}}" controls="controls">Your browser does not support audio tags</audio>
-				{{/if}}
-			</span>
-		</td>
-	</tr>
 </script>
 
 <script src="bundle.js"></script>
