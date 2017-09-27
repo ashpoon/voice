@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 class SearchResult extends React.Component {
   constructor(props) {
-    console.log(props)
     super(props);
+    this.formattedHeaders = this.props.headers.map(prettifyOptionKey).sort().join(', ')
   }
 
   render() {
@@ -13,17 +13,16 @@ class SearchResult extends React.Component {
       sample = <audio src={'samples/' + this.props.sample} controls="controls">Your browser does not support audio tags</audio>
     }
     return (
-      <tr>
-        <td>
-          <span class="search-result-body"><strong>{this.props.name}</strong> {this.props.headers}</span>
-          <span class="search-result-audio">{sample}</span>
-        </td>
-      </tr>
+      <div className="search-result">
+        <span className="search-result-body"><strong>{this.props.name}</strong> {this.formattedHeaders}</span>
+        <span className="search-result-audio">{sample}</span>
+      </div>
     );
   }
 }
 
-// <span class="search-result-body"><strong>{this.props.name}</strong> {this.props.headers}</span>
-
+function prettifyOptionKey(key) {
+  return key.replace("_", " ");
+}
 
 export default SearchResult

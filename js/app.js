@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import SearchResult from './searchResult';
 
+const searchOptionPrefix = "$";
+
 class VoiceApp extends React.Component {
   constructor(props) {
     super(props);
@@ -52,13 +54,23 @@ class VoiceApp extends React.Component {
   render() {
     return (
       <div className="voice-app">
-        <table class="table voice-search-results">
+        <table className="table voice-search-results">
           <tbody>
-            {this.state.results.map(result => (
-              <SearchResult
-                name={result.Name}
-                sample={result.Sample} />
-            ))}
+            {this.state.results.map(result => {
+              const resultHeaders = Object.keys(result)
+                .map(key => {
+                  if (key[0] === searchOptionPrefix && result[key] === true) {
+                    return key.substr(1)
+                  }
+                }).filter(Boolean);
+              return (
+                <tr>
+                  <td>
+                    <SearchResult name={result.Name} headers={resultHeaders} sample={result.Sample} />
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

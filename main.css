@@ -13,7 +13,7 @@
 	cursor: pointer;
 	user-select: none; /* prevent double click highlight */
 }
-.voice-search-results td {
+.search-result {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
