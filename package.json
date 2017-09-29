@@ -1,15 +1,16 @@
 {
   "name": "voice",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "git@github.com:ashpoon/voice.git",
   "author": "David Hirtle <wachunga@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "webpack -p",
+    "build:watch": "webpack -p --watch",
     "start": "python -m SimpleHTTPServer 3000"
   },
   "dependencies": {
+    "papaparse": "^4.3.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
