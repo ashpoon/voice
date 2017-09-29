@@ -11,31 +11,6 @@ const searchResultTemplate = Handlebars.compile(document.getElementById("search-
 
 const searchOptionPrefix = "$"
 
-// loadData("data/voice-actors.csv");
-
-// function loadData(url) {
-// 	Papa.parse(url, {
-// 		download: true,
-// 		header: true,
-// 		dynamicTyping: true,
-// 		skipEmptyLines: true,
-// 		complete: function (results) {
-// 			data = results.data.sort(function (a, b) {
-// 				return a.Name.localeCompare(b.Name);
-// 			});
-// 			headers = results.meta.fields.filter(function identifySearchOption(field) {
-// 				return field[0] === searchOptionPrefix;
-// 			}).map(function stripSearchOptionPrefix(field) {
-// 				return field.substr(1)
-// 			});
-//
-// 			displaySearchOptions(headers);
-// 			initInputs();
-// 			search();
-// 		}
-// 	});
-// }
-
 function initInputs() {
 	// searchButtonDom.addEventListener("input", search);
 	searchOptionsDom.addEventListener("change", search);
@@ -65,11 +40,4 @@ function search(input) {
 
 	// displaySummary("Matched " + matched.length + " " + maybePlural("actor", matched.length) + ":");
 	// displaySearchResults(matched);
-}
-
-function displaySearchOptions(keys) {
-	const form = document.querySelector(".voice-search-options");
-	form.innerHTML = keys.map(function (key) {
-		return searchOptionTemplate({ key: key, label: prettifyOptionKey(key) });
-	}).join("\n");
 }

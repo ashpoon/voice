@@ -18,7 +18,7 @@ class SearchResults extends React.Component {
       return row.Name.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
-    // FIXME: headers setup
+    // FIXME: also handle filters
     return (
       <div>
       	<SearchSummary count={matched.length} />

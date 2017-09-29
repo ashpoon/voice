@@ -7,6 +7,7 @@
 .voice-search-options {
 	display: flex;
 	flex-wrap: wrap;
+	margin-bottom: 1rem;
 }
 .voice-search-options label {
 	min-width: 10rem;

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Papa from 'papaparse';
 
 import SearchBox from './searchBox';
+import SearchFilters from './searchFilters';
 import SearchResults from './searchResults';
 
 const searchOptionPrefix = "$";
@@ -11,15 +12,37 @@ const dataUrl = 'data/voice-actors.csv';
 class VoiceApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [], searched: ''};
+    this.state = {
+      searched: '',
+      filters: [],
+      data: [],
+    };
+
     this.onSearchInput = this.onSearchInput.bind(this);
+    this.onSearchFilter = this.onSearchInput.bind(this);
   }
 
   componentDidMount() {
     this.loadData(dataUrl, results => {
-      const sorted = results.data.sort((a, b) => a.Name.localeCompare(b.Name));
       console.log(results)
-      this.setState({ data: sorted })
+      const sortedData = results.data.sort((a, b) => a.Name.localeCompare(b.Name));
+      this.setState({ data: sortedData })
+
+      const filters = this.prepareFilters(results.meta.fields)
+      this.setState({ filters })
+    })
+  }
+
+  prepareFilters(fields) {
+    return fields
+      .filter(function identifySearchOption(field) {
+        return field[0] === searchOptionPrefix
+      }).map(function formatAsFilter(field) {
+        const key = field.substr(1) // strip prefix
+        return {
+          key,
+          label: key.replace("_", " ")
+        }
     })
   }
 
@@ -31,44 +54,26 @@ class VoiceApp extends React.Component {
       skipEmptyLines: true,
       complete: done
     })
-
-        // headers = results.meta.fields.filter(function identifySearchOption(field) {
-        //   return field[0] === searchOptionPrefix;
-        // }).map(function stripSearchOptionPrefix(field) {
-        //   return field.substr(1)
-        // });
-
-        // displaySearchOptions(headers);
   }
 
   onSearchInput(searched) {
     this.setState({ searched });
-    // FIXME: introduce SearchResults and use this.state.searched to influence them
   }
 
-  // <form class="voice-search-options">
-  //   {this.props.items.map(item => (
-  //     <li key={item.id}>{item.text}</li>
-  //   ))}
-  //   <SearchFilter />
-  // </form>
+  onSearchFilter(filters) {
+    // TODO
+    // this.setState({ filters });
+  }
 
   render() {
     return (
       <div className="voice-app">
         <SearchBox value={this.state.searched} onChange={this.onSearchInput} />
-        <SearchResults term={this.state.searched} data={this.state.data} />
+        <SearchFilters filters={this.state.filters} onChange={this.onSearchFilter} />
+        <SearchResults term={this.state.searched} filters={this.state.filters} data={this.state.data} />
       </div>
     );
   }
-
 }
-//
-// class Search extends React.Component {
-//   render() {
-//     <input onChange={this.handleChange} value={this.state.text} />
-//     return <input type="search" onChange={} class="voice-search-input form-control" placeholder="Search..." autocomplete="off">;
-//   }
-// }
 
 ReactDOM.render(<VoiceApp/>, document.getElementById('root'));

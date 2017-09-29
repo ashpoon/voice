@@ -7,7 +7,6 @@ class SearchBox extends React.Component {
   }
 
   handleChange(event) {
-    console.log('changing', event.target.value)
     this.props.onChange(event.target.value);
   }
 
