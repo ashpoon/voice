@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 
 class SearchFilters extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
   }
 
-  render() {
+  render () {
     console.log('found %d filters', this.props.filters.length)
     return (
-      <form className="voice-search-options">
-      {this.props.filters.map(filter => (
-        <label>
-      		<input type="checkbox" class="voice-search-option" value={filter.key} /> {filter.label}
-      	</label>
+      <form className='voice-search-options'>
+        {this.props.filters.map(filter => (
+          <label>
+            <input type='checkbox' class='voice-search-option' value={filter.key} /> {filter.label}
+          </label>
       ))}
       </form>
     )

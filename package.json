@@ -7,7 +7,8 @@
   "scripts": {
     "build": "webpack -p",
     "build:watch": "webpack -p --watch",
-    "start": "python -m SimpleHTTPServer 3000"
+    "start": "python -m SimpleHTTPServer 3000",
+    "test": "standard"
   },
   "dependencies": {
     "papaparse": "^4.3.6",
@@ -19,6 +20,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
+    "standard": "^10.0.3",
     "webpack": "^3.5.6"
   }
 }
