@@ -12,7 +12,7 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    console.log('term is now', this.props.term)
+    console.log('search term is "%s"; filters are %s', this.props.term, this.props.filters)
     const searchTerm = this.props.term
     const matched = this.props.data.filter(function (row) {
       return row.Name.toLowerCase().includes(searchTerm.toLowerCase());
