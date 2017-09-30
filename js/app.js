@@ -2,20 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Papa from 'papaparse'
 
+import Attribute from './attribute'
+import AttributeFilter from './attributeFilter'
 import SearchBox from './searchBox'
 import SearchFilters from './searchFilters'
 import SearchResultList from './searchResultList'
 
-const searchOptionPrefix = '$'
 const dataUrl = 'data/voice-actors.csv'
-
-class Filter {
-  constructor (columnHeader) {
-    this.key = columnHeader.substr(1) // strip prefix
-    this.label = this.key.replace('_', ' ')
-    this.checked = false
-  }
-}
 
 class VoiceApp extends React.Component {
   constructor (props) {
@@ -32,26 +25,22 @@ class VoiceApp extends React.Component {
 
   componentDidMount () {
     this.loadData(dataUrl, results => {
-      const sortedData = results.data
-        .map(item => {
-          item.attributes = Object.keys(item)
-            .filter(key => key[0] === searchOptionPrefix && item[key] === true)
-            .map(key => key.substr(1))
-          return item
-        })
-        .sort((a, b) => a.Name.localeCompare(b.Name))
-      this.setState({ data: sortedData })
+      const data = results.data
+        .map(item => ({
+          name: item.Name,
+          sample: item.Sample,
+          attributes: Object.keys(item)
+            .filter(key => Attribute.isValidKey(key) && item[key] === true)
+            .map(key => new Attribute(key))
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name))
 
-      const filters = this.prepareFilters(results.meta.fields)
-      this.setState({ filters })
+      const filters = results.meta.fields
+        .filter(Attribute.isValidKey)
+        .map(field => new AttributeFilter(field))
+        // NOTE-DZH: do not sort because eg male/female should be consecutive
+      this.setState({ filters, data })
     })
-  }
-
-  prepareFilters (fields) {
-    return fields
-      .filter(function identifySearchOption (field) {
-        return field[0] === searchOptionPrefix
-      }).map(field => new Filter(field))
   }
 
   loadData (url, done) {
@@ -71,7 +60,7 @@ class VoiceApp extends React.Component {
   onSearchFilter (event) {
     const filteredKey = event.target.value
     const updated = this.state.filters.map(filter => {
-      return filter.key === filteredKey
+      return filter.attribute.key === filteredKey
         ? Object.assign(filter, { checked: !filter.checked })
         : filter
     })

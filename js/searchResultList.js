@@ -7,29 +7,30 @@ class SearchResultList extends React.Component {
   render () {
     const searchTerm = this.props.term
     console.log('search term is "%s"', searchTerm)
-    let matched = this.props.data.filter(function (row) {
-      return row.Name.toLowerCase().includes(searchTerm.toLowerCase())
+    let matchedResults = this.props.data.filter(function (row) {
+      return row.name.toLowerCase().includes(searchTerm.toLowerCase())
     })
 
-    const checkedOptions = this.props.filters.filter(filter => filter.checked)
-    console.log(`${checkedOptions.length} checked filters: ${checkedOptions.map(o => o.label).join(',')}`)
-    if (checkedOptions.length) {
-      matched = matched.filter(row => {
-        return checkedOptions.every(checkedOption => row.attributes.includes(checkedOption.key))
+    const checkedFilters = this.props.filters.filter(filter => filter.checked)
+    console.log(`${checkedFilters.length} checked filters: ${checkedFilters.map(o => o.attribute.label).join(',')}`)
+    if (checkedFilters.length) {
+      matchedResults = matchedResults.filter(row => {
+        const attributeKeys = row.attributes.map(a => a.key)
+        return checkedFilters.every(filter => attributeKeys.includes(filter.attribute.key))
       })
     }
 
-    const results = matched.map(result =>
+    const results = matchedResults.map(result =>
       <tr>
         <td>
-          <SearchResult name={result.Name} attributes={result.attributes} sample={result.Sample} />
+          <SearchResult name={result.name} attributes={result.attributes} sample={result.sample} />
         </td>
       </tr>
     )
 
     return (
       <div>
-        <SearchSummary count={matched.length} />
+        <SearchSummary count={matchedResults.length} />
         <table className='table voice-search-results'>
           <tbody>
             {results}

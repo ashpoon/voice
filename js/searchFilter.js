@@ -6,7 +6,7 @@ function SearchFilter (props) {
       <input type='checkbox' class='voice-search-option'
         onChange={props.onChange}
         checked={props.filter.checked}
-        value={props.filter.key} /> {props.filter.label}
+        value={props.filter.attribute.key} /> {props.filter.attribute.label}
     </label>
   )
 }

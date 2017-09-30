@@ -1,7 +1,7 @@
 import React from 'react'
 
 function SearchResult (props) {
-  const formattedAttributes = props.attributes.map(prettifyOptionKey).sort().join(', ')
+  const formattedAttributes = props.attributes.map(a => a.label).sort().join(', ')
   let sample = null
   if (props.sample) {
     sample = <audio src={'samples/' + props.sample} controls='controls'>Your browser does not support audio tags</audio>
@@ -13,10 +13,6 @@ function SearchResult (props) {
       <span className='search-result-audio'>{sample}</span>
     </div>
   )
-}
-
-function prettifyOptionKey (key) {
-  return key.replace('_', ' ')
 }
 
 export default SearchResult
