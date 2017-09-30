@@ -1,23 +1,18 @@
 import React from 'react'
 
-class SearchResult extends React.Component {
-  constructor (props) {
-    super(props)
-    this.formattedHeaders = this.props.headers.map(prettifyOptionKey).sort().join(', ')
+function SearchResult (props) {
+  const formattedAttributes = props.attributes.map(prettifyOptionKey).sort().join(', ')
+  let sample = null
+  if (props.sample) {
+    sample = <audio src={'samples/' + props.sample} controls='controls'>Your browser does not support audio tags</audio>
   }
 
-  render () {
-    let sample = null
-    if (this.props.sample) {
-      sample = <audio src={'samples/' + this.props.sample} controls='controls'>Your browser does not support audio tags</audio>
-    }
-    return (
-      <div className='search-result'>
-        <span className='search-result-body'><strong>{this.props.name}</strong> {this.formattedHeaders}</span>
-        <span className='search-result-audio'>{sample}</span>
-      </div>
-    )
-  }
+  return (
+    <div className='search-result'>
+      <span className='search-result-body'><strong>{props.name}</strong> {formattedAttributes}</span>
+      <span className='search-result-audio'>{sample}</span>
+    </div>
+  )
 }
 
 function prettifyOptionKey (key) {

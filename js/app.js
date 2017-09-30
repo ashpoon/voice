@@ -4,10 +4,18 @@ import Papa from 'papaparse'
 
 import SearchBox from './searchBox'
 import SearchFilters from './searchFilters'
-import SearchResults from './searchResults'
+import SearchResultList from './searchResultList'
 
 const searchOptionPrefix = '$'
 const dataUrl = 'data/voice-actors.csv'
+
+class Filter {
+  constructor (columnHeader) {
+    this.key = columnHeader.substr(1) // strip prefix
+    this.label = this.key.replace('_', ' ')
+    this.checked = false
+  }
+}
 
 class VoiceApp extends React.Component {
   constructor (props) {
@@ -19,13 +27,19 @@ class VoiceApp extends React.Component {
     }
 
     this.onSearchInput = this.onSearchInput.bind(this)
-    this.onSearchFilter = this.onSearchInput.bind(this)
+    this.onSearchFilter = this.onSearchFilter.bind(this)
   }
 
   componentDidMount () {
     this.loadData(dataUrl, results => {
-      console.log(results)
-      const sortedData = results.data.sort((a, b) => a.Name.localeCompare(b.Name))
+      const sortedData = results.data
+        .map(item => {
+          item.attributes = Object.keys(item)
+            .filter(key => key[0] === searchOptionPrefix && item[key] === true)
+            .map(key => key.substr(1))
+          return item
+        })
+        .sort((a, b) => a.Name.localeCompare(b.Name))
       this.setState({ data: sortedData })
 
       const filters = this.prepareFilters(results.meta.fields)
@@ -37,13 +51,7 @@ class VoiceApp extends React.Component {
     return fields
       .filter(function identifySearchOption (field) {
         return field[0] === searchOptionPrefix
-      }).map(function formatAsFilter (field) {
-        const key = field.substr(1) // strip prefix
-        return {
-          key,
-          label: key.replace('_', ' ')
-        }
-      })
+      }).map(field => new Filter(field))
   }
 
   loadData (url, done) {
@@ -56,13 +64,18 @@ class VoiceApp extends React.Component {
     })
   }
 
-  onSearchInput (searched) {
-    this.setState({ searched })
+  onSearchInput (event) {
+    this.setState({ searched: event.target.value })
   }
 
-  onSearchFilter (filters) {
-    // TODO
-    // this.setState({ filters });
+  onSearchFilter (event) {
+    const filteredKey = event.target.value
+    const updated = this.state.filters.map(filter => {
+      return filter.key === filteredKey
+        ? Object.assign(filter, { checked: !filter.checked })
+        : filter
+    })
+    this.setState({ filters: updated })
   }
 
   render () {
@@ -70,7 +83,7 @@ class VoiceApp extends React.Component {
       <div className='voice-app'>
         <SearchBox value={this.state.searched} onChange={this.onSearchInput} />
         <SearchFilters filters={this.state.filters} onChange={this.onSearchFilter} />
-        <SearchResults term={this.state.searched} filters={this.state.filters} data={this.state.data} />
+        <SearchResultList term={this.state.searched} filters={this.state.filters} data={this.state.data} />
       </div>
     )
   }
