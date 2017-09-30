@@ -1,7 +1,11 @@
 import React from 'react'
 
 function SearchSummary (props) {
-  return <p class='voice-search-summary'>Matched {props.count} {maybePlural('actor', props.count)}:</p>
+  const matchedMessage = `Matched ${props.count} ${maybePlural('actor', props.count)}`
+  if (props.count === 0) {
+    return <p class='voice-search-summary'>{matchedMessage}. Please double check your filters.</p>
+  }
+  return <p class='voice-search-summary'>{matchedMessage}:</p>
 }
 
 function maybePlural (singular, count) {

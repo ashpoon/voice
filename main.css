@@ -1,5 +1,5 @@
 .container {
-	width: 800px;
+	width: 850px;
 }
 .voice-search-input {
 	margin-bottom: 1rem;
@@ -9,7 +9,7 @@
 	flex-wrap: wrap;
 	margin-bottom: 1rem;
 }
-.voice-search-options label {
+.voice-search-option__label {
 	min-width: 10rem;
 	cursor: pointer;
 	user-select: none; /* prevent double click highlight */
