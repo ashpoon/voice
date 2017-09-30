@@ -16,7 +16,7 @@ class SearchResultList extends React.Component {
     if (checkedFilters.length) {
       matchedResults = matchedResults.filter(row => {
         const attributeKeys = row.attributes.map(a => a.key)
-        return checkedFilters.every(filter => attributeKeys.includes(filter.attribute.key))
+        return checkedFilters.every(filter => attributeKeys.indexOf(filter.attribute.key) > -1)
       })
     }
 
