@@ -1,11 +1,11 @@
 module.exports = {
   entry: {
     bundle: [
-      './js/app.js',
-      // below are just polyfills for eg IE
+      // include a few polyfills for eg IE 11
       'core-js/es6/array',  // eg Array.from
       'core-js/fn/object/assign',
-      'core-js/fn/array/includes'
+      'core-js/fn/array/includes',
+      './js/app.js'
     ]
   },
   output: {
