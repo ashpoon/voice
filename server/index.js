@@ -1,5 +1,6 @@
 const express = require('express')
 const auth = require('basic-auth')
+const pkg = require('../package.json')
 
 const config = {
   user: process.env.VOICE_USER || 'admin',
@@ -15,7 +16,6 @@ app.set('view engine', 'ejs')
 
 function authenticate (req, res, next) {
   var credentials = auth(req)
-  console.log(credentials)
   if (!credentials || credentials.name !== config.user || credentials.pass !== config.pass) {
     res.status(401)
     res.header('WWW-Authenticate', 'Basic realm="voice"')
@@ -26,7 +26,7 @@ function authenticate (req, res, next) {
 }
 
 app.get('/', authenticate, (req, res) => {
-  res.render('index.ejs', config)
+  res.render('index.ejs', Object.assign(config, { version: pkg.version }))
 })
 
 app.use(express.static('www'))
