@@ -8,7 +8,10 @@ import SearchBox from './searchBox'
 import SearchFilters from './searchFilters'
 import SearchResultList from './searchResultList'
 
-const dataUrl = 'data/voice-actors.csv'
+const dataUrl = window.voiceConfig.dataUrl
+if (!dataUrl) {
+  throw new Error('no data url specified')
+}
 
 class VoiceApp extends React.Component {
   constructor (props) {

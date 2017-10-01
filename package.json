@@ -7,10 +7,13 @@
   "scripts": {
     "build": "webpack -p",
     "build:watch": "webpack -p --watch",
-    "start": "python -m SimpleHTTPServer 3000",
+    "start": "node server",
     "test": "standard"
   },
   "dependencies": {
+    "basic-auth": "^2.0.0",
+    "ejs": "^2.5.7",
+    "express": "^4.16.1",
     "papaparse": "^4.3.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
@@ -22,5 +25,8 @@
     "babel-preset-react": "^6.24.1",
     "standard": "^10.0.3",
     "webpack": "^3.5.6"
+  },
+  "now": {
+    "alias": "voice"
   }
 }

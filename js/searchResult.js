@@ -1,10 +1,15 @@
 import React from 'react'
 
+const samplesUrl = window.voiceConfig.samplesUrl
+if (!samplesUrl) {
+  throw new Error('no samples url specified')
+}
+
 function SearchResult (props) {
   const formattedAttributes = props.attributes.map(a => a.label).sort().join(', ')
   let sample = null
   if (props.sample) {
-    sample = <audio className='search-result__audio' src={'samples/' + props.sample} controls='controls'>Your browser does not support audio tags</audio>
+    sample = <audio className='search-result__audio' src={samplesUrl + props.sample} controls='controls'>Your browser does not support audio tags</audio>
   }
 
   return (
