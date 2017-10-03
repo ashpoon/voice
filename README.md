@@ -1,10 +1,6 @@
-Try it out: https://voice.now.sh
-
-For privacy reasons, please contact Ash or David for the login credentials.
-
-# Voice talent
-
-Search for just the right voice talent for your project.
+<h1>
+<img src="https://rawgit.com/ashpoon/voice/master/media/screenshot.png" alt="Voice Talent screenshot">
+</h1>
 
 ## How do you add more actors?
 
@@ -27,4 +23,7 @@ npm start
 
 The app is mostly static but a minimal server was added for password protection. To re-deploy the app via `now`, best talk to David.
 
+It lives here: https://voice.now.sh. For privacy reasons, please contact Ash or David for the login credentials. This should change in the future.
+
 To use custom voice actors and samples, set the following environment variables: `VOICE_CSV` and `VOICE_SAMPLES`. Otherwise, the defaults in [data/voice-actors.csv](https://github.com/ashpoon/voice/blob/master/data/voice-actors.csv) will be used.
+
