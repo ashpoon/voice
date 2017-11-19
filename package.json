@@ -6,14 +6,17 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack -p",
+    "postbuild": "node scripts/downloadSamples.js",
     "build:watch": "webpack -p --watch",
     "start": "node server",
     "test": "standard"
   },
   "dependencies": {
     "basic-auth": "^2.0.0",
+    "bluebird": "3.5.1",
     "ejs": "^2.5.7",
     "express": "^4.16.1",
+    "jsftp": "2.0.0",
     "papaparse": "^4.3.6",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"

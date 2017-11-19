@@ -1,14 +1,7 @@
 const express = require('express')
 const auth = require('basic-auth')
 const pkg = require('../package.json')
-
-const config = {
-  user: process.env.VOICE_USER || 'admin',
-  pass: process.env.VOICE_PASS || 'doublespeak',
-  port: process.env.VOICE_PORT || 3000,
-  csvUrl: process.env.VOICE_CSV || 'data/voice-actors.csv',
-  samplesUrl: process.env.VOICE_SAMPLES || 'data/samples/' // filenames in csv are all relative to this
-}
+const config = require('../config')
 
 var app = express()
 app.set('views', './server')
