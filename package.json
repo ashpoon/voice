@@ -9,6 +9,7 @@
     "postbuild": "node scripts/downloadSamples.js",
     "build:watch": "webpack -p --watch",
     "start": "node server",
+    "start:prod": "VOICE_CONFIG=./prod node server",
     "test": "standard"
   },
   "dependencies": {

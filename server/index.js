@@ -1,5 +1,7 @@
 const express = require('express')
 const auth = require('basic-auth')
+const samples = require('./samples')
+
 const pkg = require('../package.json')
 const config = require('../config')
 
@@ -24,8 +26,29 @@ app.get('/', (req, res) => {
   res.render('index.ejs', { csvUrl, samplesUrl, version: pkg.version })
 })
 
-app.use(express.static('www'))
+// demo uses local samples
 app.use('/data', express.static('data'))
+
+// prod uses samples from FTP
+app.get('/sample/:name', (req, res) => {
+  if (!config.ftp) {
+    return res.sendStatus(404)
+  }
+
+  const filename = req.params.name
+  if (!filename) {
+    return res.sendStatus(400)
+  }
+
+  samples.download(filename)
+    .then(stream => stream.pipe(res))
+    .catch(err => {
+      console.error(err)
+      res.sendStatus(500)
+    })
+})
+
+app.use(express.static('www'))
 
 app.listen(config.port, () => {
   console.log(`Voice app listening on port ${config.port}`)

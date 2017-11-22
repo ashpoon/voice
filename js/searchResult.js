@@ -9,7 +9,7 @@ function SearchResult (props) {
   const formattedAttributes = props.attributes.map(a => a.label).sort().join(', ')
   let sample = null
   if (props.sample) {
-    sample = <audio className='search-result__audio' preload='false' src={samplesUrl + props.sample} controls='controls'>Your browser does not support audio tags</audio>
+    sample = <audio className='search-result__audio' preload='none' src={samplesUrl + props.sample} controls='controls'>Your browser does not support audio tags</audio>
   }
 
   return (
