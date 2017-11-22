@@ -14,7 +14,10 @@ function SearchResult (props) {
 
   return (
     <div className='search-result'>
-      <span className='search-result__body'><strong>{props.name}</strong> <span class='search-result__attr'>{formattedAttributes}</span></span>
+      <span className='search-result__body'>
+        <strong>{props.name}</strong> <span class='search-result__attr'>{formattedAttributes}</span>
+        <span className='search-result__notes'>{props.restrictions}</span>
+      </span>
       {sample}
     </div>
   )

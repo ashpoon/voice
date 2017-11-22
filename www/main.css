@@ -28,10 +28,14 @@
 	align-items: center;
 	justify-content: space-between;
 }
-.search-result__attr {
+.search-result__attr,
+.search-result__notes {
 	color: #777;
 	display: block;
 	font-size: 0.8rem;
+}
+.search-result__notes {
+	font-style: italic;
 }
 
 .search-result__audio {
@@ -44,8 +48,8 @@
 	.voice-header {
 		font-size: 5rem;
 	}
-	.search-result__attr {
+	.search-result__attr,
+	.search-result__notes {
 		font-size: 0.9rem;
-		display: inline;
 	}
 }

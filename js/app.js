@@ -32,6 +32,7 @@ class VoiceApp extends React.Component {
         .map(item => ({
           name: item.Name,
           sample: item.Sample,
+          restrictions: item.Restrictions,
           attributes: Object.keys(item)
             .filter(key => Attribute.isValidKey(key) && item[key] === true)
             .map(key => new Attribute(key))

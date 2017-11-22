@@ -23,7 +23,7 @@ class SearchResultList extends React.Component {
     const results = matchedResults.map(result =>
       <tr>
         <td>
-          <SearchResult name={result.name} attributes={result.attributes} sample={result.sample} />
+          <SearchResult name={result.name} restrictions={result.restrictions} attributes={result.attributes} sample={result.sample} />
         </td>
       </tr>
     )
