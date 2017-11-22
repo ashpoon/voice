@@ -17,8 +17,9 @@ function authenticate (req, res, next) {
     next()
   }
 }
+app.use(authenticate)
 
-app.get('/', authenticate, (req, res) => {
+app.get('/', (req, res) => {
   const { csvUrl, samplesUrl } = config
   res.render('index.ejs', { csvUrl, samplesUrl, version: pkg.version })
 })
