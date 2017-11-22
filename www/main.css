@@ -36,7 +36,7 @@
 
 .search-result__audio {
 	display: block;
-	width: 4rem; /* hide volume etc */
+	width: 5rem; /* hide volume etc */
 	margin-left: 0.3rem;
 }
 

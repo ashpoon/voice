@@ -6,7 +6,6 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack -p",
-    "postbuild": "node scripts/downloadSamples.js",
     "build:watch": "webpack -p --watch",
     "start": "node server",
     "start:prod": "VOICE_CONFIG=./prod node server",
