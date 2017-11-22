@@ -3,12 +3,12 @@ const auth = require('basic-auth')
 const pkg = require('../package.json')
 const config = require('../config')
 
-var app = express()
+const app = express()
 app.set('views', './server')
 app.set('view engine', 'ejs')
 
 function authenticate (req, res, next) {
-  var credentials = auth(req)
+  const credentials = auth(req)
   if (!credentials || credentials.name !== config.user || credentials.pass !== config.pass) {
     res.status(401)
     res.header('WWW-Authenticate', 'Basic realm="voice"')
@@ -19,7 +19,8 @@ function authenticate (req, res, next) {
 }
 
 app.get('/', authenticate, (req, res) => {
-  res.render('index.ejs', Object.assign(config, { version: pkg.version }))
+  const { csvUrl, samplesUrl } = config
+  res.render('index.ejs', { csvUrl, samplesUrl, version: pkg.version })
 })
 
 app.use(express.static('www'))
