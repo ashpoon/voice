@@ -4,6 +4,17 @@ import SearchSummary from './searchSummary'
 import SearchResult from './searchResult'
 
 class SearchResultList extends React.Component {
+  onPlay (e) {
+    // TODO: result list shouldn't know how to pause audio
+    // pausing all other samples
+    const audioTags = document.querySelectorAll('audio')
+    Array.from(audioTags).forEach(audio => {
+      if (audio !== e.target) {
+        audio.pause()
+      }
+    })
+  }
+
   render () {
     const searchTerm = this.props.term
     console.log('search term is "%s"', searchTerm)
@@ -23,7 +34,7 @@ class SearchResultList extends React.Component {
     const results = matchedResults.map(result =>
       <tr>
         <td>
-          <SearchResult name={result.name} restrictions={result.restrictions} attributes={result.attributes} sample={result.sample} />
+          <SearchResult name={result.name} onPlay={this.onPlay} restrictions={result.restrictions} attributes={result.attributes} sample={result.sample} />
         </td>
       </tr>
     )
